@@ -1,11 +1,11 @@
 var express = require("express");
 var router = express.Router();
-var Product = require("../../../models/Product");
+var Makeup = require("../../../models/Makeup");
 
 router.get("/", async function (req, res, next) {
   console.log("inside");
   setTimeout(async () => {
-    let products = await Product.find();
+    let products = await Makeup.find();
 
     res.send(products);
   }, 5000);

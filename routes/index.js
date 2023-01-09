@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Product = require("../models/Product");
+var Makeup = require("../models/Makeup");
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 /* GET home page. */
@@ -47,10 +47,21 @@ router.post("/register", async function (req, res, next) {
 router.get("/contact-us", function (req, res, next) {
   return res.render("site/contact", { layout: "layout" });
 });
+
+router.get("/add",(req,res)=>{
+  res.render("site/add");
+});
+
+router.post("/add",async(req,res)=>{
+  let products = new Makeup(req.body);
+  await products.save();
+  res.redirect("/");
+})
+
 router.get("/", async function (req, res, next) {
-  let products = await Product.find();
+  let products = await Makeup.find();
   return res.render("site/homepage", {
-    pagetitle: "Awesome Products",
+    pagetitle: "Makeup Products",
     products,
   });
 });
